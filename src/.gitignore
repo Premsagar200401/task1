@@ -1,0 +1,15 @@
+# Ignore SSH keys
+*.pem
+
+# Ignore log files
+*.log
+
+# Ignore build folders (Maven / Java)
+target/
+
+# Ignore node modules if any
+node_modules/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
