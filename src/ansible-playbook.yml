@@ -1,29 +1,22 @@
----
 - hosts: worker
   become: true
-
   tasks:
 
-    - name: Install Docker
-      apt:
-        name: docker.io
-        state: present
-        update_cache: yes
+  - name: Install Docker
+    apt:
+      name: docker.io
+      state: present
+      update_cache: yes
 
-    - name: Start Docker Service
-      service:
-        name: docker
-        state: started
-        enabled: yes
+  - name: Start Docker Service
+    service:
+      name: docker
+      state: started
 
-    - name: Login to DockerHub
-      command: docker login -u premsagar200415 -p Premsagar@2014
+  - name: Copy project files to worker node
+    copy:
+      src: .
+      dest: /home/ubuntu/app
 
-    - name: Build Docker Image
-      command: docker build -t premsagar200415/devops-project .
-
-    - name: Push Docker Image to DockerHub
-      command: docker push premsagar200415/devops-project
-
-    - name: Run Docker Container
-      command: docker run -d -p 8085:80 premsagar200415/devops-project
+  - name: Build Docker Image
+    command: docker build -t premsagar200415/devops-project /home/ubuntu/app
